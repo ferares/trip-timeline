@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url = env("DB_PATH")
+}
+
+model Step {
+  id Int @id @default(autoincrement())
+  order Int
+  title String
+  subtitle String
+  type String
+  icon String
+  time String
+  locationEs String @map(name: "location_es")
+  locationEn String @map(name: "location_en")
+  link String?
+  address String?
+  map String?
+  description String?
+  cost String?
+  company String?
+  number String?
+  duration String?
+  trip Trip @relation(fields: [tripId], references: [id])
+  tripId  Int @map(name: "trip_id")
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @default(now()) @map(name: "updated_at")
+  @@map("steps")
+}
+
+model Trip {
+  id Int @id @default(autoincrement())
+  slug String @unique
+  title String
+  travelers String
+  albumURL String @map(name: "album_url")
+  description String?
+  steps Step[]
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @default(now()) @map(name: "updated_at")
+  @@map("trips")
+}

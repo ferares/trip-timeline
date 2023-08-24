@@ -1,0 +1,37 @@
+.spinner {
+  height: 54px;
+  margin: 0 auto;
+  margin-top: 1rem;
+  position: relative;
+  width: 54px;
+}
+
+.spinner__component {
+  animation: spinner 1.2s cubic-bezier(.5, 0, .5, 1) infinite;
+  border: 3px solid wheat;
+  border-color: wheat transparent transparent transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: block;
+  height: 44px;
+  margin: 4px;
+  position: absolute;
+  width: 44px;
+}
+
+.spinner__component:nth-child(1) {
+  animation-delay: -.45s;
+}
+
+.spinner__component:nth-child(2) {
+  animation-delay: -.3s;
+}
+
+.spinner__component:nth-child(3) {
+  animation-delay: -.15s;
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0) }
+  to { transform: rotate(360deg) }
+}

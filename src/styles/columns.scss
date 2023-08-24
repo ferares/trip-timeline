@@ -1,0 +1,15 @@
+.columns {
+  background-color: #70146a;
+  color: wheat;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 2rem;
+  text-align: center;
+}
+
+.columns .section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

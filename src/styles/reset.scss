@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--body-bg);
+  margin: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Source Serif Pro', serif;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
