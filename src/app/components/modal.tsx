@@ -1,41 +1,38 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 import { Step } from '@prisma/client'
 
-export default function Modal({ step, show = false, close }: { step?: Step, show: boolean, close: () => void }) {
-  const [display, setDisplay] = useState(show)
+export default function Modal({ step, open, close }: { step?: Step, open: boolean, close: () => void }) {
   const modal = useRef<HTMLDivElement>(null)
   const modalContent = useRef<HTMLDivElement>(null)
   const modalClose = useRef<HTMLButtonElement>(null)
 
-  useEffect(() => {
-    setDisplay(show)
-  }, [show, setDisplay])
-
-  const hide = useCallback(close, [close]);
-
-  useEffect(() => {
+  const toggle = useCallback((show: boolean) => {
     function closeOnEsc (event: KeyboardEvent) {
-      if (event.key === 'Escape') hide()
+      if (event.key === 'Escape') close()
     }
 
-    if (display) {
+    if (show) {
       document.body.style.overflowY = 'hidden'
       document.addEventListener('keydown', closeOnEsc)
+      modal.current?.classList.add('show')
     } else {
       document.body.style.overflowY = 'auto'
       document.removeEventListener('keydown', closeOnEsc)
+      modal.current?.classList.remove('show')
     }
-  }, [display, hide])
+  }, [close])
+  
+  useEffect(() => toggle(open), [open, toggle])
 
   modalContent.current?.addEventListener('click', (event) => event.stopPropagation())
-  modalClose.current?.addEventListener('click', hide)
-  modal.current?.addEventListener('click', hide)
+  modalClose.current?.addEventListener('click', () => close())
+  modal.current?.addEventListener('click', () => close())
 
   return (
-    <div className={`modal ${display ? 'show' : ''}`} tabIndex={-1} role="dialog" ref={modal}>
+    <div className="modal" tabIndex={-1} role="dialog" ref={modal}>
       <div className="modal-content" ref={modalContent}>
           <div className="modal-header">
             <button className="modal-close" type="button" ref={modalClose}>X</button>
@@ -78,8 +75,7 @@ export default function Modal({ step, show = false, close }: { step?: Step, show
                 </span>
               )}
               {step.map && (
-                <div className="data-map">
-                  {step.map}
+                <div className="data-map" dangerouslySetInnerHTML={{ __html: step.map }}>
                 </div>
               )}
             </div>

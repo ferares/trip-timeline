@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Step, Trip } from '@prisma/client'
 
 import { dateHasPassed, dateToString } from '@/utils'
+
 import Modal from './modal'
 
 export default function Timeline({ trip, items, currentId }: { trip: Trip ,items: Step[], currentId: number }) {
@@ -90,7 +91,7 @@ export default function Timeline({ trip, items, currentId }: { trip: Trip ,items
           </li>
         ))}
       </ol>
-      <Modal show={modal.show} step={modal.step} close={closeModal} />
+      <Modal open={modal.show} step={modal.step} close={closeModal} />
     </div>
   )
 }
