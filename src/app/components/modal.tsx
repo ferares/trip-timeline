@@ -23,13 +23,15 @@ export default function Modal({ step, open, close }: { step?: Step, open: boolea
       document.removeEventListener('keydown', closeOnEsc)
       modal.current?.classList.remove('show')
     }
-  }, [close])
+  },  [])
   
   useEffect(() => toggle(open), [open, toggle])
 
-  modalContent.current?.addEventListener('click', (event) => event.stopPropagation())
-  modalClose.current?.addEventListener('click', () => close())
-  modal.current?.addEventListener('click', () => close())
+  useEffect(() => {
+    modalContent.current?.addEventListener('click', (event) => event.stopPropagation())
+    modalClose.current?.addEventListener('click', () => close())
+    modal.current?.addEventListener('click', () => close())
+  }, [])
 
   return (
     <div className="modal" tabIndex={-1} role="dialog" ref={modal}>
