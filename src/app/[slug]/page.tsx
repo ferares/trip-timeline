@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { redirect } from 'next/navigation'
 
 import { PrismaClient } from '@prisma/client'
@@ -13,6 +12,21 @@ import Header from '../components/header'
 
 const prisma = new PrismaClient()
 
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const trip = await prisma.trip.findFirst({ where: { slug: params.slug } })
+  if (!trip) return redirect('/')
+  return {
+    title: trip.title,
+    description: trip.description,
+    openGraph: {
+      title: trip.title,
+      description: trip.description,
+      type: 'website',
+      image: '/favicon.png'
+    },
+  }
+}
+
 export default async function Home({ params }: { params: { slug: string } }) {
   const trip = await prisma.trip.findFirst({ where: { slug: params.slug } })
   if (!trip) return redirect('/')
@@ -21,13 +35,6 @@ export default async function Home({ params }: { params: { slug: string } }) {
   const description = 'Compartí nuestro viaje'
   return (
     <>
-      <Head>
-        <title>{trip.title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={trip.title} />
-        <meta property="og:description" content={description} />
-      </Head>
       <Header title={trip.title} />
       <main className="main">
         <Timeline trip={trip} items={items} currentId={current.id} />
