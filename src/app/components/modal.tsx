@@ -42,26 +42,30 @@ export default function Modal({ step, open, close }: { step?: Step, open: boolea
           {step && (
             <div className="modal-body">
               <h2 className="data-title">
-                {step.link ? (
-                  <a className="data-link" href="{step.link}">
-                    {step.title}
-                  </a>
-                ): step.title}
+                {step.title}
               </h2>
+              {step.link && (
+                <span className="data-link">
+                  <strong>Sitio web</strong>:&nbsp;
+                  <a href="{step.link}">
+                    {step.link}
+                  </a>
+                </span>
+              )}
               {step.address && (
                 <span className="data-address">
-                  <strong>Dirección</strong>:
+                  <strong>Dirección</strong>:&nbsp;
                   {step.address}
                 </span>
               )}
               {step.company && (
                 <h3 className="data-company">
-                  {step.company + step.number ? ` - ${step.number}`: ''}
+                  {step.company + (step.number ? ` - ${step.number}`: '')}
                 </h3>
               )}
               {step.duration && (
                 <span className="data-duration">
-                  <strong>Duración</strong>:
+                  <strong>Duración</strong>:&nbsp;
                   {step.duration}
                 </span>
               )}
@@ -72,7 +76,7 @@ export default function Modal({ step, open, close }: { step?: Step, open: boolea
               )}
               {step.cost && (
                 <span className="data-cost">
-                  <strong>Costo</strong>:
+                  <strong>Costo</strong>:&nbsp;
                   {step.cost}
                 </span>
               )}

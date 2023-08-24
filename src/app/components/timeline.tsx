@@ -53,6 +53,7 @@ export default function Timeline({ trip, items, currentId }: { trip: Trip ,items
         {items.map((item, index) => (
           <li key={index} className={`timeline__item timeline__item--${item.type} ${currentId === item.id ? 'active' : ''}`} js-timeline-item="">
             <button className="timeline__item__btn" type="button" onClick={() => openModal(item)}>
+              <img className="timeline__item__info" src="/icons/default/info.png" alt="" />
               <img className={`timeline__item__icon timeline__item__icon--${item.icon}`} src={`/icons/${item.icon}.png`} alt="" />
               {(currentId === item.id) && usElement}
             </button>
