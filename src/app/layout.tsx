@@ -22,7 +22,6 @@ export default function RootLayout({
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content="/favicon.png" />
         <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
       <body className="body">

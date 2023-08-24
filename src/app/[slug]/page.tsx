@@ -22,7 +22,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title: trip.title,
       description: trip.description,
       type: 'website',
-      image: '/favicon.png'
     },
   }
 }
