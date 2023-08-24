@@ -9,7 +9,7 @@ import Footer from './components/footer'
 const title = 'Nuestro viaje'
 const description = 'Compartí nuestro viaje'
 
-export const metadata: Metadata = { title, description }
+export const metadata: Metadata = { title, description, metadataBase: new URL(process.env.BASE_URL || '') }
 
 export default function RootLayout({
   children,
