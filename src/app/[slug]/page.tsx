@@ -9,6 +9,7 @@ import Clock from '../components/clock'
 import Weather from '../components/weather'
 import Photos from '../components/photos'
 import Header from '../components/header'
+import Theme from '../components/theme'
 
 const prisma = new PrismaClient()
 
@@ -34,6 +35,7 @@ export default async function Home({ params }: { params: { slug: string } }) {
   const description = 'Compartí nuestro viaje'
   return (
     <>
+      <Theme colors={trip.colors} />
       <Header title={trip.title} />
       <main className="main">
         <Timeline trip={trip} items={items} currentId={current.id} />

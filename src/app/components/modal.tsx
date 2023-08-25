@@ -37,9 +37,14 @@ export default function Modal({ step, open, close }: { step?: Step, open: boolea
     <div className="modal" tabIndex={-1} role="dialog" ref={modal}>
       <div className="modal-content" ref={modalContent}>
           <div className="modal-header">
-            <h2 className="data-title">
-              {step?.title}
-            </h2>
+            <div className="data-titles">
+              <h2 className="data-title">
+                {step?.title}
+              </h2>
+              <h3 className="data-subtitle">
+                {step?.subtitle}
+              </h3>
+            </div>
             <button className="modal-close" type="button" ref={modalClose}>
               <img className="modal-close__icon" src="/icons/default/close.png" alt="Cerrar" />
             </button>

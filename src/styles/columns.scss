@@ -1,6 +1,6 @@
 .columns {
-  background-color: #70146a;
-  color: wheat;
+  background-color: var(--color-columns);
+  color: var(--color-columns-text);
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(3, 1fr);

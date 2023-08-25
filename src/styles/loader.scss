@@ -8,8 +8,8 @@
 
 .spinner__component {
   animation: spinner 1.2s cubic-bezier(.5, 0, .5, 1) infinite;
-  border: 3px solid wheat;
-  border-color: wheat transparent transparent transparent;
+  border: 3px solid var(--color-columns-text);
+  border-color: var(--color-columns-text) transparent transparent transparent;
   border-radius: 50%;
   box-sizing: border-box;
   display: block;

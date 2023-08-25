@@ -7,25 +7,19 @@ import Weather from '../types/weather'
 
 const prisma = new PrismaClient()
 
-async function getWeather(location: string): Promise<Weather> {
-  const queryParams = new URLSearchParams()
-  queryParams.set('q', location)
-  queryParams.set('key', process.env.WEATHER_API_KEY || '')
-  queryParams.set('lang', 'es')
-  const response = await fetch(`https://api.weatherapi.com/v1/current.json?${queryParams.toString()}`, { next: { revalidate: 1800000 }, headers: { 'Content-Type': 'application/json' } })
-  return await response.json()
-}
-
-async function getCurrentWeather() {
+async function getCurrentWeather(): Promise<Weather> {
   const items = await prisma.step.findMany({ orderBy: { order: 'desc' } })
   const current = getCurrentTimelineItem(items)
-  let weather
+  const queryParams = new URLSearchParams()
+  queryParams.set('q', current.locationEn)
+  queryParams.set('key', process.env.WEATHER_API_KEY || '')
+  queryParams.set('lang', 'es')
   try {
-    weather = await getWeather(current.locationEn)
+    const response = await fetch(`https://api.weatherapi.com/v1/current.json?${queryParams.toString()}`, { next: { revalidate: 1800 }, headers: { 'Content-Type': 'application/json' } })
+    return await response.json()
   } catch (error) {
-    console.error('Weather error', error)
+    return new Promise((_, reject) => reject(error))
   }
-  return weather
 }
 
 export async function GET() {
