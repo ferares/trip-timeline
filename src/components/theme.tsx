@@ -1,5 +1,3 @@
-'use client'
-
 export default function Theme({ colors }: { colors: string }) {
   const colorsObject: { [key: string]: string } = JSON.parse(colors)
   let styles = ''
@@ -10,6 +8,6 @@ export default function Theme({ colors }: { colors: string }) {
     }
   }
   return (
-    <style jsx global>{`:root {${styles}}`}</style>
+    <style>{`:root {${styles}}`}</style>
   )
 }
