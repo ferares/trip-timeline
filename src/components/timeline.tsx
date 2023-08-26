@@ -1,6 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
+
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { Step, Trip } from '@prisma/client'
 
@@ -9,13 +11,16 @@ import { dateHasPassed, dateToString } from '@/utils'
 import Modal from './modal'
 import StepModalContent from './stepModalContent'
 
+import arrowImg from '../../public/icons/default/arrow.png'
+import infoImg from '../../public/icons/default/info.png'
+
 export default function Timeline({ trip, steps, currentId }: { trip: Trip ,steps: Step[], currentId: number }) {
   const [modal, setModal] = useState<{ show: boolean, title?: JSX.Element, content?: JSX.Element }>({ show: false })
   const timeline = useRef<HTMLOListElement>(null)
 
   const usElement = (
     <div className="us">
-      {JSON.parse(trip.travelers).map((traveler: string, index: number) => <img key={index} className="us__img" src={traveler} alt=""/>)}
+      {JSON.parse(trip.travelers).map((traveler: string, index: number) => <Image key={index} className="us__img" src={traveler} width={64} height={64} alt=""/>)}
     </div>
   )
 
@@ -37,9 +42,9 @@ export default function Timeline({ trip, steps, currentId }: { trip: Trip ,steps
     setModal({ show: true, content, title })
   }
 
-  function closeModal() {
-    setModal({ ...modal, show: false })
-  }
+  const closeModal = useCallback(() => {
+    setModal((modal) => { return { ...modal, show: false } })
+  }, [])
 
   function startScrollTimeline(direction: -1 | 1) {
     const interval = setInterval(() => scrollTimeline(direction))
@@ -53,17 +58,17 @@ export default function Timeline({ trip, steps, currentId }: { trip: Trip ,steps
   return (
     <div className="section section--timeline">
       <button className="timeline__arrow-btn" type="button" onMouseDown={() => startScrollTimeline(1)}>
-        <img className="timeline__arrow-img" src="/icons/default/arrow.png" alt="Avanzar" />
+        <Image className="timeline__arrow-img" src={arrowImg} alt="Avanzar" />
       </button>
       <button className="timeline__arrow-btn timeline__arrow-btn--back" type="button" onMouseDown={() => startScrollTimeline(-1)}>
-        <img className="timeline__arrow-img" src="/icons/default/arrow.png" alt="Retroceder"/>
+        <Image className="timeline__arrow-img" src={arrowImg} alt="Retroceder"/>
       </button>
       <ol className="timeline" ref={timeline}>
         {steps.map((step, index) => (
           <li key={index} className={`timeline__item timeline__item--${step.type} ${currentId === step.id ? 'active' : ''}`} js-timeline-item="">
             <button className="timeline__item__btn" type="button" onClick={() => openModal(step)}>
-              <img className="timeline__item__info" src="/icons/default/info.png" alt="" />
-              <img className={`timeline__item__icon timeline__item__icon--${step.icon}`} src={`/icons/${step.icon}.png`} alt="" />
+              <Image className="timeline__item__info" src={infoImg} alt="" />
+              <Image className={`timeline__item__icon timeline__item__icon--${step.icon}`} height={120} width={120} src={`/icons/${step.icon}.png`} alt="" />
               {(currentId === step.id) && usElement}
             </button>
             <h2 className="timeline__item__title">

@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 import { useEffect, useState } from 'react'
 
 import Weather from '../types/weather'
@@ -39,7 +41,7 @@ export default function Weather({ locationName }: { locationName: string }) {
     content = (
       <>
         <span className="weather-data">
-          <img className="weather-icon" src={state.weather.current.condition.icon} alt="" />
+          <Image className="weather-icon" width={96} height={96} src={`https:${state.weather.current.condition.icon}`} alt="" />
           <span>{state.weather.current.condition.text}</span>
         </span>
         <span className="weather-data">

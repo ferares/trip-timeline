@@ -151,7 +151,7 @@
   border-radius: 50%;
   height: auto;
   margin: 0 auto;
-  width: 4.7em;
+  width: 4rem;
 }
 
 .us__img:nth-child(2n) {
@@ -213,12 +213,7 @@
 
 .weather-icon {
   vertical-align: middle;
-  margin-right: -1rem;
   width: 6rem;
-}
-
-.weather-icon + span {
-  margin-right: 1rem;
 }
 
 .time-data {
