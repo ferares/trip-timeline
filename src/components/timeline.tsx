@@ -74,7 +74,7 @@ export default function Timeline({ trip, steps, currentId }: { trip: Trip ,steps
             <h2 className="timeline__item__title">
               {step.title}
             </h2>
-            {(step.type !== 'origin' && !dateHasPassed(step.time)) ? (
+            {(step.type !== 'origin') ? (
               <>
                 <span className="timeline__item__time">
                   {dateToString(step.time)}
