@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+
+import { prisma } from '../../../prisma/prismaClient'
 
 import { getCurrentTimelineItem } from '@/utils'
 
-import Weather from '../types/weather'
-
-const prisma = new PrismaClient()
+import Weather from '../../types/weather'
 
 async function getCurrentWeather(): Promise<Weather> {
   const items = await prisma.step.findMany({ orderBy: { order: 'desc' } })

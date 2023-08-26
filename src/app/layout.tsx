@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 
 import React from 'react'
 
-import Footer from './components/footer'
+import Footer from '../components/footer'
 
 const title = 'Nuestro viaje'
 const description = 'Compartí nuestro viaje'
@@ -22,7 +22,6 @@ export default function RootLayout({
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
       <body className="body">
         {children}

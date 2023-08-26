@@ -1,17 +1,15 @@
 import { redirect } from 'next/navigation'
 
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '../../../prisma/prismaClient'
 
 import { getCurrentTimelineItem } from '@/utils'
 
-import Timeline from '../components/timeline'
-import Clock from '../components/clock'
-import Weather from '../components/weather'
-import Photos from '../components/photos'
-import Header from '../components/header'
-import Theme from '../components/theme'
-
-const prisma = new PrismaClient()
+import Timeline from '../../components/timeline'
+import Clock from '../../components/clock'
+import Weather from '../../components/weather'
+import Photos from '../../components/photos'
+import Header from '../../components/header'
+import Theme from '../../components/theme'
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const trip = await prisma.trip.findFirst({ where: { slug: params.slug } })
