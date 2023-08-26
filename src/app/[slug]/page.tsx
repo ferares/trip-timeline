@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 
 import { prisma } from '../../../prisma/prismaClient'
 
-import { getCurrentTimelineItem } from '@/utils'
+import { getCurrentTimelineStep } from '@/utils'
 
 import Timeline from '../../components/timeline'
 import Clock from '../../components/clock'
@@ -28,15 +28,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function Home({ params }: { params: { slug: string } }) {
   const trip = await prisma.trip.findFirst({ where: { slug: params.slug } })
   if (!trip) return redirect('/')
-  const items = await prisma.step.findMany({ where: { tripId: trip.id }, orderBy: {  order: 'asc' } })
-  const current = getCurrentTimelineItem(items)
-  const description = 'Compartí nuestro viaje'
+  const steps = await prisma.step.findMany({ where: { tripId: trip.id }, orderBy: {  order: 'asc' } })
+  const current = getCurrentTimelineStep(steps)
   return (
     <>
       <Theme colors={trip.colors} />
       <Header title={trip.title} />
       <main className="main">
-        <Timeline trip={trip} items={items} currentId={current.id} />
+        <Timeline trip={trip} steps={steps} currentId={current.id} />
         <div className="columns">
           <Photos title={trip.title} albumURL={trip.albumURL} />
           <Weather locationName={current.locationEs} />

@@ -2,13 +2,13 @@ import { NextResponse } from 'next/server'
 
 import { prisma } from '../../../prisma/prismaClient'
 
-import { getCurrentTimelineItem } from '@/utils'
+import { getCurrentTimelineStep } from '@/utils'
 
 import Weather from '../../types/weather'
 
 async function getCurrentWeather(): Promise<Weather> {
   const items = await prisma.step.findMany({ orderBy: { order: 'desc' } })
-  const current = getCurrentTimelineItem(items)
+  const current = getCurrentTimelineStep(items)
   const queryParams = new URLSearchParams()
   queryParams.set('q', current.locationEn)
   queryParams.set('key', process.env.WEATHER_API_KEY || '')

@@ -7,12 +7,12 @@ import { Step, Trip } from '@prisma/client'
 import { dateHasPassed, dateToString } from '@/utils'
 
 import Modal from './modal'
+import StepModalContent from './stepModalContent'
 
-export default function Timeline({ trip, items, currentId }: { trip: Trip ,items: Step[], currentId: number }) {
-  const [modal, setModal] = useState<{ show: boolean, step: Step | undefined }>({ show: false, step: undefined })
+export default function Timeline({ trip, steps, currentId }: { trip: Trip ,steps: Step[], currentId: number }) {
+  const [modal, setModal] = useState<{ show: boolean, title?: JSX.Element, content?: JSX.Element }>({ show: false })
   const timeline = useRef<HTMLOListElement>(null)
 
-  
   const usElement = (
     <div className="us">
       {JSON.parse(trip.travelers).map((traveler: string, index: number) => <img key={index} className="us__img" src={traveler} alt=""/>)}
@@ -24,8 +24,17 @@ export default function Timeline({ trip, items, currentId }: { trip: Trip ,items
     activeTimelineItem?.scrollIntoView({ block: 'end', inline: 'center',  behavior: 'smooth' })
   }, [])
 
-  function openModal(item: Step) {
-    setModal({ show: true, step: item })
+  function openModal(step: Step) {
+    const content = (<StepModalContent step={step} />)
+    const title = (<>
+      <h2 className="data-title">
+        {step?.title}
+      </h2>
+      <h3 className="data-subtitle">
+        {step?.subtitle}
+      </h3>
+    </>)
+    setModal({ show: true, content, title })
   }
 
   function closeModal() {
@@ -50,26 +59,26 @@ export default function Timeline({ trip, items, currentId }: { trip: Trip ,items
         <img className="timeline__arrow-img" src="/icons/default/arrow.png" alt="Retroceder"/>
       </button>
       <ol className="timeline" ref={timeline}>
-        {items.map((item, index) => (
-          <li key={index} className={`timeline__item timeline__item--${item.type} ${currentId === item.id ? 'active' : ''}`} js-timeline-item="">
-            <button className="timeline__item__btn" type="button" onClick={() => openModal(item)}>
+        {steps.map((step, index) => (
+          <li key={index} className={`timeline__item timeline__item--${step.type} ${currentId === step.id ? 'active' : ''}`} js-timeline-item="">
+            <button className="timeline__item__btn" type="button" onClick={() => openModal(step)}>
               <img className="timeline__item__info" src="/icons/default/info.png" alt="" />
-              <img className={`timeline__item__icon timeline__item__icon--${item.icon}`} src={`/icons/${item.icon}.png`} alt="" />
-              {(currentId === item.id) && usElement}
+              <img className={`timeline__item__icon timeline__item__icon--${step.icon}`} src={`/icons/${step.icon}.png`} alt="" />
+              {(currentId === step.id) && usElement}
             </button>
             <h2 className="timeline__item__title">
-              {item.title}
+              {step.title}
             </h2>
-            {(item.type !== 'origin' && !dateHasPassed(item.time)) ? (
+            {(step.type !== 'origin' && !dateHasPassed(step.time)) ? (
               <>
                 <span className="timeline__item__time">
-                  {dateToString(item.time)}
+                  {dateToString(step.time)}
                 </span>
-                {(items[index + 1]) ? (
+                {(steps[index + 1]) ? (
                   <>
                     <br />
                     <span className="timeline__item__time">
-                      {dateToString(items[index + 1].time)}
+                      {dateToString(steps[index + 1].time)}
                     </span>
                   </>
                 ) : (
@@ -92,7 +101,7 @@ export default function Timeline({ trip, items, currentId }: { trip: Trip ,items
           </li>
         ))}
       </ol>
-      <Modal open={modal.show} step={modal.step} close={closeModal} />
+      <Modal open={modal.show} title={modal.title} content={modal.content} close={closeModal} />
     </div>
   )
 }

@@ -16,7 +16,7 @@ export function dateToString(dateString: string) {
   return `${month} ${date} - ${hours}:${minutes}`
 }
 
-export function getCurrentTimelineItem(items: Step[]) {
+export function getCurrentTimelineStep(items: Step[]) {
   let currentIndex = -1
   for (const item of items) {
     currentIndex++
