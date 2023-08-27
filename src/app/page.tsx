@@ -1,4 +1,4 @@
-import Header from '../components/header'
+import Header from '../includes/header'
 
 export default async function Home() {
   return (

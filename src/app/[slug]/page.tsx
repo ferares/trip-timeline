@@ -8,7 +8,7 @@ import Timeline from '../../components/timeline'
 import Clock from '../../components/clock'
 import Weather from '../../components/weather'
 import Photos from '../../components/photos'
-import Header from '../../components/header'
+import Header from '../../includes/header'
 import Theme from '../../components/theme'
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {

@@ -1,0 +1,21 @@
+.time-data {
+  display: flex;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 2rem;
+  font-weight: 600;
+  justify-content: center;
+}
+
+.time-dots {
+  animation: blink 1s infinite 2s;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  
+  50% {
+    opacity: 1;
+  }
+}

@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400;1,600&family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400;1,600&family=Source+Code+Pro:wght@600&display=swap');
-@import './variables.scss';
-@import './reset.scss';
-@import './loader.scss';
-@import './header.scss';
-@import './footer.scss';
-@import './base.scss';
-@import './columns.scss';
+@import './variables';
+@import './reset';
+@import './base';
+@import './includes/index';
+@import './components/index';

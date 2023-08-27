@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 
 import React from 'react'
 
-import Footer from '../components/footer'
+import Footer from '../includes/footer'
 
 const title = 'Nuestro viaje'
 const description = 'Compartí nuestro viaje'
