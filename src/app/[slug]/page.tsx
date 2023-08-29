@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function Home({ params }: { params: { slug: string } }) {
+export default async function Trip({ params }: { params: { slug: string } }) {
   const trip = await prisma.trip.findFirst({ where: { slug: params.slug } })
   if (!trip) return redirect('/')
   const steps = await prisma.step.findMany({ where: { tripId: trip.id }, orderBy: {  order: 'asc' } })

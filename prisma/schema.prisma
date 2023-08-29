@@ -44,7 +44,60 @@ model Trip {
   albumURL String @map(name: "album_url")
   description String?
   steps Step[]
+  user User[]
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @default(now()) @map(name: "updated_at")
   @@map("trips")
+}
+
+// Authentication models
+model Account {
+  id String @id @default(cuid())
+  userId String @map("user_id")
+  type String
+  provider String
+  providerAccountId String @map("provider_account_id")
+  refresh_token String?
+  refresh_token_expires_in Int?
+  access_token String?
+  oauth_token String?
+  oauth_token_secret String?
+  expires_at Int?
+  token_type String?
+  scope String?
+  id_token String?
+  session_state String?
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id String @id @default(cuid())
+  sessionToken String @unique @map("session_token")
+  userId String @map("user_id")
+  expires DateTime
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("sessions")
+}
+
+model User {
+  id String @id @default(cuid())
+  name String?
+  email String? @unique
+  emailVerified DateTime? @map("email_verified")
+  image String?
+  admin Boolean @default(false)
+  accounts Account[]
+  sessions Session[]
+  trip Trip[]
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token String @unique
+  expires DateTime
+  @@unique([identifier, token])
+  @@map("verificationtokens")
 }

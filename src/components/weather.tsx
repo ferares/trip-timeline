@@ -8,7 +8,7 @@ import Weather from '../types/weather'
 
 async function getWeather(): Promise<Weather> {
   try {
-    const response = await fetch('/weather')
+    const response = await fetch('/api/weather')
     if ((response.status >= 300) || (response.status < 200)) throw response.statusText
     return await response.json()
   } catch (error) {
