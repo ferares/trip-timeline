@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { Step, Trip } from '@prisma/client'
 
-import { dateHasPassed, dateToString } from '@/utils'
+import { dateToString } from '@/utils'
 
 import Modal from './modal'
 import StepModalContent from './stepModalContent'

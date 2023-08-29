@@ -1,4 +1,4 @@
-import '../styles/main.scss'
+import '@/styles/main.scss'
 
 import { Metadata } from 'next'
 
@@ -6,9 +6,9 @@ import { getServerSession } from 'next-auth'
 
 import React from 'react'
 
-import Footer from '../includes/footer'
+import Footer from '@/includes/footer'
 
-import { SessionProvider } from '../components/sessionProvider'
+import { SessionProvider } from '@/components/sessionProvider'
 import { authOptions } from './api/auth/[...nextauth]/route'
 
 const title = 'Nuestro viaje'

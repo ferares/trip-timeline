@@ -4,12 +4,12 @@ import { prisma } from '../../../prisma/prismaClient'
 
 import { getCurrentTimelineStep } from '@/utils'
 
-import Timeline from '../../components/timeline'
-import Clock from '../../components/clock'
-import Weather from '../../components/weather'
-import Photos from '../../components/photos'
-import Header from '../../includes/header'
-import Theme from '../../components/theme'
+import Timeline from '@/components/timeline'
+import Clock from '@/components/clock'
+import Weather from '@/components/weather'
+import Photos from '@/components/photos'
+import Header from '@/includes/header'
+import Theme from '@/components/theme'
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const trip = await prisma.trip.findFirst({ where: { slug: params.slug } })

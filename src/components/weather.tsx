@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import { useEffect, useState } from 'react'
 
-import Weather from '../types/weather'
+import Weather from '@/types/weather'
 
 async function getWeather(): Promise<Weather> {
   try {
