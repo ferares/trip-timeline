@@ -6,6 +6,15 @@ export function dateHasPassed(dateString: string) {
   return (date <= now)
 }
 
+export function timeZoneOffsetToString(timeZoneOffset: number) {
+  const timeZoneSign = timeZoneOffset > 0 ? 1 : -1
+  const hours = timeZoneSign * Math.floor(timeZoneOffset / 60)
+  const minutes = timeZoneSign * timeZoneOffset % 60
+  const hoursString = `${hours > 9 ? '' : '0'}${hours}`
+  const minutesString = `${minutes > 9 ? '' : '0'}${minutes}`
+  return `UTC${timeZoneOffset > 0 ? '-' : '+' }${hoursString}:${minutesString}`
+}
+
 export function dateToString(dateString: string) {
   const months = ['Ene.', 'Feb.', 'Mar.', 'Abr.', 'May.', 'Jun.', 'Jul.', 'Ago.', 'Sep.', 'Oct.', 'Nov.', 'Dic.']
   const dateTime = new Date(dateString)

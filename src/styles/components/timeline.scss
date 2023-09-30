@@ -148,6 +148,14 @@
   transform: rotate(180deg);
 }
 
+.timeline__disclaimer {
+  bottom: 1rem;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  right: 0;
+}
+
 .us {
   display: grid;
   gap: 5px;
