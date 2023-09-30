@@ -107,7 +107,7 @@ export default function Timeline({ trip, steps, currentId }: { trip: Trip ,steps
         ))}
       </ol>
       <span className="timeline__disclaimer">
-        Las horas se muestran en la hora local del dispositivo ({timeZoneOffsetToString((new Date()).getTimezoneOffset())})
+        Las horas se muestran en la hora local de tu dispositivo ({timeZoneOffsetToString((new Date()).getTimezoneOffset())})
       </span>
       <Modal open={modal.show} title={modal.title} content={modal.content} close={closeModal} />
     </div>
