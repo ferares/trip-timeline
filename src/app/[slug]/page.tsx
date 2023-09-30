@@ -39,7 +39,7 @@ export default async function Home({ params }: { params: { slug: string } }) {
         <Timeline trip={trip} steps={steps} currentId={current.id} />
         <div className="columns">
           <Photos title={trip.title} albumURL={trip.albumURL} />
-          <Weather locationName={current.locationEs} />
+          <Weather locationName={current.locationEs} tripId={trip.id} />
           <Clock locationName={current.locationEs} dateTimeString={dateTimeString} />
         </div>
       </main>

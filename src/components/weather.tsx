@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react'
 
 import Weather from '../types/weather'
 
-async function getWeather(): Promise<Weather> {
+async function getWeather(tripId: number): Promise<Weather> {
   try {
-    const response = await fetch('/weather')
+    const response = await fetch(`/api/weather/${tripId}`)
     if ((response.status >= 300) || (response.status < 200)) throw response.statusText
     return await response.json()
   } catch (error) {
@@ -16,11 +16,11 @@ async function getWeather(): Promise<Weather> {
   }
 }
 
-export default function Weather({ locationName }: { locationName: string }) {
+export default function Weather({ locationName, tripId }: { locationName: string, tripId: number }) {
   const [state, setState] = useState<{loading: boolean, weather: Weather | undefined}>({ loading: true, weather: undefined })
 
   useEffect(() => {
-    getWeather().then((weather: Weather) => {
+    getWeather(tripId).then((weather: Weather) => {
       setState({ loading: false, weather })
     }).catch(() => {
       setState({ loading: false, weather: undefined })
