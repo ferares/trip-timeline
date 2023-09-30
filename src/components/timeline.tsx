@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { Step, Trip } from '@prisma/client'
 
-import { dateHasPassed, dateToString } from '@/utils'
+import { dateToString, timeZoneOffsetToString } from '@/utils'
 
 import Modal from './modal'
 import StepModalContent from './stepModalContent'
@@ -106,6 +106,9 @@ export default function Timeline({ trip, steps, currentId }: { trip: Trip ,steps
           </li>
         ))}
       </ol>
+      <span className="timeline__disclaimer">
+        Las horas se muestran en la hora local del dispositivo ({timeZoneOffsetToString((new Date()).getTimezoneOffset())})
+      </span>
       <Modal open={modal.show} title={modal.title} content={modal.content} close={closeModal} />
     </div>
   )
