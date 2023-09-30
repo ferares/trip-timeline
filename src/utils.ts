@@ -1,8 +1,8 @@
 import { Step } from '@prisma/client'
 
 export function dateHasPassed(dateString: string) {
-  const now = new Date()
-  const date = new Date(dateString)
+  const now = (new Date()).getTime()
+  const date = Date.parse(dateString)
   return (date <= now)
 }
 
@@ -22,5 +22,11 @@ export function getCurrentTimelineStep(items: Step[]) {
     currentIndex++
     if (!dateHasPassed(item.time)) break
   }
-  return items[currentIndex]
+  return items[currentIndex > 0 ? currentIndex - 1 : currentIndex]
+}
+
+export function getNextStep(step: Step, steps: Step[]) {
+  const index = steps.indexOf(step)
+  if ((index > -1) && (index < steps.length - 1)) return steps[index + 1]
+  return step
 }

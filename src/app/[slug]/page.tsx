@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 
 import { prisma } from '../../../prisma/prismaClient'
 
-import { getCurrentTimelineStep } from '@/utils'
+import { getCurrentTimelineStep, getNextStep } from '@/utils'
 
 import Timeline from '../../components/timeline'
 import Clock from '../../components/clock'
@@ -30,6 +30,7 @@ export default async function Home({ params }: { params: { slug: string } }) {
   if (!trip) return redirect('/')
   const steps = await prisma.step.findMany({ where: { tripId: trip.id }, orderBy: {  order: 'asc' } })
   const current = getCurrentTimelineStep(steps)
+  const dateTimeString = current.type === 'transit' ? getNextStep(current, steps).time : current.time
   return (
     <>
       <Theme colors={trip.colors} />
@@ -39,7 +40,7 @@ export default async function Home({ params }: { params: { slug: string } }) {
         <div className="columns">
           <Photos title={trip.title} albumURL={trip.albumURL} />
           <Weather locationName={current.locationEs} />
-          <Clock locationName={current.locationEs} dateTimeString={current.time} />
+          <Clock locationName={current.locationEs} dateTimeString={dateTimeString} />
         </div>
       </main>
     </>
