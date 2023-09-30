@@ -17,12 +17,12 @@ export function dateToString(dateString: string) {
 }
 
 export function getCurrentTimelineStep(items: Step[]) {
-  let currentIndex = -1
-  for (const item of items) {
-    currentIndex++
+  let index
+  for (index = 0; index < items.length; index++) {
+    const item = items[index];
     if (!dateHasPassed(item.time)) break
   }
-  return items[currentIndex > 0 ? currentIndex - 1 : currentIndex]
+  return items[index > 0 ? index - 1 : index]
 }
 
 export function getNextStep(step: Step, steps: Step[]) {
