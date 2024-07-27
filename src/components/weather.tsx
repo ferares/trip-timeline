@@ -4,9 +4,9 @@ import Image from 'next/image'
 
 import { useEffect, useState } from 'react'
 
-import Weather from '../types/weather'
+import WeatherType from '../types/weather'
 
-async function getWeather(tripId: number): Promise<Weather> {
+async function getWeather(tripId: number): Promise<WeatherType> {
   try {
     const response = await fetch(`/api/weather/${tripId}`)
     if ((response.status >= 300) || (response.status < 200)) throw response.statusText
@@ -17,15 +17,15 @@ async function getWeather(tripId: number): Promise<Weather> {
 }
 
 export default function Weather({ locationName, tripId }: { locationName: string, tripId: number }) {
-  const [state, setState] = useState<{loading: boolean, weather: Weather | undefined}>({ loading: true, weather: undefined })
+  const [state, setState] = useState<{loading: boolean, weather: WeatherType | undefined}>({ loading: true, weather: undefined })
 
   useEffect(() => {
-    getWeather(tripId).then((weather: Weather) => {
+    getWeather(tripId).then((weather: WeatherType) => {
       setState({ loading: false, weather })
     }).catch(() => {
       setState({ loading: false, weather: undefined })
     })
-  }, [])
+  }, [tripId])
 
   let content
   if (state.loading) {
