@@ -8,6 +8,7 @@ import { Step, Trip } from '@prisma/client'
 
 import { dateToString, timeZoneOffsetToString } from '@/utils'
 
+import Switch from './switch'
 import Modal from './modal'
 import StepModalContent from './stepModalContent'
 
@@ -16,6 +17,7 @@ import infoImg from '../../public/icons/default/info.png'
 
 export default function Timeline({ trip, steps, currentId }: { trip: Trip ,steps: Step[], currentId: number }) {
   const [modal, setModal] = useState<{ show: boolean, title?: JSX.Element, content?: JSX.Element }>({ show: false })
+  const [localTime, setLocalTime] = useState(true)
   const timeline = useRef<HTMLOListElement>(null)
 
   const usElement = (
@@ -77,13 +79,13 @@ export default function Timeline({ trip, steps, currentId }: { trip: Trip ,steps
             {(step.type !== 'origin') ? (
               <>
                 <span className="timeline__item__time">
-                  {dateToString(step.time)}
+                  {dateToString(step.time, localTime)}
                 </span>
                 {(steps[index + 1]) ? (
                   <>
                     <br />
                     <span className="timeline__item__time">
-                      {dateToString(steps[index + 1].time)}
+                      {dateToString(steps[index + 1].time, localTime)}
                     </span>
                   </>
                 ) : (
@@ -106,9 +108,18 @@ export default function Timeline({ trip, steps, currentId }: { trip: Trip ,steps
           </li>
         ))}
       </ol>
-      <span className="timeline__disclaimer">
-        Las horas se muestran en la hora local de tu dispositivo ({timeZoneOffsetToString((new Date()).getTimezoneOffset())})
-      </span>
+      <div className="timeline__disclaimer">
+        <Switch label={'Horario viajeros'} onChange={(on) => setLocalTime(!on)} />
+          {localTime && (
+            <span>
+              Las horas se muestran en la hora local de tu dispositivo ({timeZoneOffsetToString((new Date()).getTimezoneOffset())})
+            </span>
+          ) || (
+            <span>
+              Las horas se muestran en la zona horaria de los viajeros
+            </span>
+          )}
+      </div>
       <Modal open={modal.show} title={modal.title} content={modal.content} close={closeModal} />
     </div>
   )

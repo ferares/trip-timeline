@@ -15,7 +15,7 @@
   list-style: none;
   margin: 0;
   overflow: auto;
-  padding: 9em 7rem;
+  padding: 15em 7rem;
   padding-top: 23.5em;
   position: relative;
   text-align: center;
@@ -150,6 +150,9 @@
 
 .timeline__disclaimer {
   bottom: 1rem;
+  display: grid;
+  gap: 1rem;
+  justify-content: center;
   left: 0;
   position: absolute;
   text-align: center;
