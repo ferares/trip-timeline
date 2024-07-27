@@ -29,7 +29,7 @@ export default async function AdminTrip({ params }: { params: { slug: string } }
       <Header title={trip.title} />
       <SignOutBtn />
       <main className="main">
-        <Timeline trip={trip} steps={steps} currentId={current.id} />
+        <Timeline trip={trip} steps={steps} currentId={current.id} admin={true} />
         <div className="columns">
           <Photos title={trip.title} albumURL={trip.albumURL} />
           <Weather locationName={current.locationEs} />

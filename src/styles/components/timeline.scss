@@ -123,6 +123,30 @@
   opacity: 0;
 }
 
+.timeline__admin-add {
+  background-color: var(--color-timeline);
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  transform: translateY(-165%);
+  width: 2rem;
+}
+
+.timeline__item--transit .timeline__admin-add,
+.timeline__item--scale .timeline__admin-add {
+  right: -3.5rem;
+  transform: translateY(140%);
+}
+
+.timeline__admin-add__icon {
+  opacity: .5;
+  transition: opacity .5s ease-in-out;
+}
+
+.timeline__admin-add:hover .timeline__admin-add__icon {
+  opacity: 1;
+}
+
 .timeline__arrow-btn {
   background-color: transparent;
   border: 0;

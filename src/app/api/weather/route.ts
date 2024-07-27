@@ -6,6 +6,8 @@ import { getCurrentTimelineStep } from '@/utils'
 
 import Weather from '@/types/weather'
 
+export const dynamic = 'force-dynamic' // Don't pre-render this GET method
+
 async function getCurrentWeather(): Promise<Weather> {
   const items = await prisma.step.findMany({ orderBy: { order: 'desc' } })
   const current = getCurrentTimelineStep(items)

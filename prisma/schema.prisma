@@ -21,13 +21,8 @@ model Step {
   locationEs String @map(name: "location_es")
   locationEn String @map(name: "location_en")
   link String?
-  address String?
   map String?
   description String?
-  cost String?
-  company String?
-  number String?
-  duration String?
   trip Trip @relation(fields: [tripId], references: [id])
   tripId  Int @map(name: "trip_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
